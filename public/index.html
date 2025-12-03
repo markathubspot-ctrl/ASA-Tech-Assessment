@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Breezy Admin Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="page">
+
+    <header>
+      <img src="./breezy-logo.png" alt="Breezy logo" class="breezy-logo" />
+      <div>
+        <h1>Breezy Admin Panel - Proof Of Concept</h1>
+        <p>Don't Get Heated Over Your Thermostat. Get Breezy.</p>
+      </div>
+    </header>
+
+    <!-- AI INSIGHTS PANEL (TOP) -->
+    <section class="panel full-width" id="aiPanel">
+      <div class="ai-panel-header">
+        <div>
+          <h2>AI Insights – Latest Contacts & Deals</h2>
+          <p class="small">
+            Gemini-powered summary of the 5 most recent contacts and their deals. Use it as a quick pulse check.
+          </p>
+        </div>
+        <div class="ai-controls">
+          <button id="generateAiOverviewBtn">Generate Insights</button>
+        </div>
+      </div>
+
+      <div id="aiOverviewLoading" class="loading hidden">Analyzing recent activity...</div>
+      <div id="aiOverviewError" class="error hidden"></div>
+      <div id="aiOverviewResult" class="ai-result"></div>
+
+    </section>
+
+    <div id="status" class="status"></div>
+
+    <main class="layout-top">
+
+      <!-- LEFT COLUMN: CONTACTS -->
+      <section class="panel" id="contactsPanel">
+        <h2>Contacts</h2>
+        <button id="refreshContactsBtn">Refresh Contacts</button>
+
+        <div id="contactsLoading" class="loading hidden">Loading contacts...</div>
+        <div id="contactsError" class="error hidden"></div>
+
+        <table id="contactsTable">
+          <thead>
+            <tr>
+              <th>First</th>
+              <th>Last</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Address</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="contactsTableBody"></tbody>
+        </table>
+
+        <div id="contactsPagination" class="pagination">
+          <button id="contactsPrevBtn">Prev</button>
+          <span id="contactsPageInfo">Page 1</span>
+          <button id="contactsNextBtn">Next</button>
+        </div>
+      </section>
+
+      <!-- RIGHT COLUMN: FORMS STACKED -->
+      <section class="panel" id="formsPanel">
+
+        <!-- CREATE CONTACT -->
+        <div class="form-block">
+          <h2>Create Contact</h2>
+          <form id="createContactForm">
+            <div class="field">
+              <label>First name*</label>
+              <input name="firstname" required />
+            </div>
+
+            <div class="field">
+              <label>Last name*</label>
+              <input name="lastname" required />
+            </div>
+
+            <div class="field">
+              <label>Email*</label>
+              <input name="email" type="email" required />
+            </div>
+
+            <div class="field">
+              <label>Phone</label>
+              <input name="phone" />
+            </div>
+
+            <div class="field">
+              <label>Address</label>
+              <input name="address" />
+            </div>
+
+            <button type="submit">Create Contact</button>
+          </form>
+        </div>
+
+        <hr />
+
+        <!-- CREATE DEAL -->
+        <div class="form-block">
+          <h2>Create Deal</h2>
+          <form id="createDealForm">
+            <div class="field">
+              <label>Contact*</label>
+              <select id="dealContactSelect" required>
+                <option value="">Select contact...</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label>Deal name*</label>
+              <input name="dealname" required />
+            </div>
+
+            <div class="field">
+              <label>Amount (USD)*</label>
+              <input type="number" name="amount" required />
+            </div>
+
+            <div class="field">
+              <label>Stage*</label>
+              <select name="dealstage" id="dealstage">
+                <option value="closedwon">closedwon</option>
+                <option value="closedlost">closedlost</option>
+              </select>
+            </div>
+
+            <button type="submit">Create Deal</button>
+          </form>
+        </div>
+
+      </section>
+
+      <!-- BOTTOM FULL WIDTH: DEALS -->
+      <section class="panel full-width" id="dealsPanel">
+        <h2>Deals</h2>
+        <p id="dealsHeader">No contact selected.</p>
+
+        <div id="dealsLoading" class="loading hidden">Loading deals...</div>
+        <div id="dealsError" class="error hidden"></div>
+
+        <table id="dealsTable" class="hidden">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Amount</th>
+              <th>Stage</th>
+            </tr>
+          </thead>
+          <tbody id="dealsTableBody"></tbody>
+        </table>
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
